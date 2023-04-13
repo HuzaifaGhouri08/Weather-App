@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  
+<!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- My Css -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar container-fluid">
+    <div id="spinner" class="loading">Loading&#8230;</div>
+		<a href="index.html"><div id="logo" class="logo mx-3 my-2">Weather App</div></a>
+		<div>
+    <a href="#" class="btn1">Home</a>
+    <a href="/page2.html" class="btn2 mx-4">Favourite</a>
+		</div>
+	</nav>
+   
+
+  <!-- Search bar -->
+  <div class="container my-3">
+    <div class="row mx-5 justify-content-center w-100% align-items-center">
+      <div>
+        <form class="form-inline">
+          <div class="input-group rounded-circle">
+            <input type="text" id="input" class="form-control border-0 bg-light " placeholder="Enter City Name...">
+            <div class="input-group-append">
+              <button id="submit" class="btn btn-outline-light" type="button"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Weather card -->
+  <div id="content" class="card mx-5 px-2" style="font-weight:bold; color:black;background-color: rgba(255, 255, 255, 0.4); position:relative;">
+    <div class="local">
+    <div id="like" class="like text-end ">
+    <a href="#"><i class="far fa-heart" id="heart-icon"></i></a>
+  </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col-1">
+          <img id="weather-icon" src="https://www.pngmart.com/files/12/Sun-And-Cloud-PNG-Transparent.png">
+        </div>
+        <div class="col-10 mx-3 ">
+          <h3 id="city">Karachi</h3> 
+          <h3 id="temperature">29'C</h3> 
+        </div>
+        <h1 id="description" class="my-5" >haze:</h1>
+      </div>
+         </div>
+        </div>
+        
+
+        <!-- Weather forecast cards -->
+        <div class="container align-items-center text-center">
+          <div class="row">
+            <div class="col-md-3 col-sm-6 ">
+              <div class="card1 ">
+                <div class="card-body">
+                  <h5 id="day1" class="card-title">day1</h5>
+          <img class="icon" id="weather-icon1" src="https://www.pngmart.com/files/12/Sun-And-Cloud-PNG-Transparent.png" alt="">
+                <p id="temp1" class="card-text">Temprature</p>
+                  <p id="desc1" class="card-text">Discription</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+              <div class="card2">
+                <div class="card-body">
+                  <h5 id="day2" class="card-title">Tuesday</h5>
+                <img class="icon" id="weather-icon2" src="https://www.pngmart.com/files/12/Sun-And-Cloud-PNG-Transparent.png" alt="">
+                  <p id="temp2" class="card-text">Temprature</p>
+                  <p id="desc2" class="card-text">Discription</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+              <div class="card3">
+                <div class="card-body">
+                  <h5 id="day3" class="card-title">Wednsday</h5>
+                   <img class="icon" id="weather-icon3" src="https://www.pngmart.com/files/12/Sun-And-Cloud-PNG-Transparent.png" alt="">
+                  <p id="temp3" class="card-text">Temprature</p>
+                  <p id="desc3" class="card-text">Discription</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+              <div class="card4">
+                <div class="card-body">
+                  <h5 id="day4" class="card-title">Thursday</h5>
+                  <img class="icon" id="weather-icon4" src="https://www.pngmart.com/files/12/Sun-And-Cloud-PNG-Transparent.png" alt="">
+                  <p id="temp4" class="card-text">Temprature</p>
+                  <p id="desc4" class="card-text">Discription</p>
+              </img>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>  
+  
+<script>
+// get refrences from DOM
+const apiKey = '0ca029c0834a5c456a92f016f6864eea';
+const button = document.getElementById('submit');
+const cityElement = document.getElementById('city');
+const temperatureElement = document.getElementById('temperature');
+const descriptionElement = document.getElementById('description');
+const iconElement = document.getElementById('weather-icon');
+const icon1 = document.getElementById('weather-icon1');
+const icon2 = document.getElementById('weather-icon2');
+const icon3 = document.getElementById('weather-icon3');
+const icon4 = document.getElementById('weather-icon4');
+const day1 = document.getElementById('day1');
+const temp1 = document.getElementById('temp1');
+const desc1 = document.getElementById('desc1');
+const day2 = document.getElementById('day2');
+const temp2 = document.getElementById('temp2');
+const desc2 = document.getElementById('desc2');
+const day3 = document.getElementById('day3');
+const temp3 = document.getElementById('temp3');
+const desc3 = document.getElementById('desc3');
+const day4 = document.getElementById('day4');
+const temp4 = document.getElementById('temp4');
+const desc4 = document.getElementById('desc4');
+const input = document.getElementById('input');
+const heart = document.getElementById('heart-icon');
+const spinner = document.getElementById('spinner');
+const content = document.getElementById('content');
+
+// Event Listener
+button.addEventListener('click', () => {
+spinner.style.display = "block";  
+
+const city = input.value.trim();
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+const urlforecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+ // Clear the input field
+input.value = '';
+
+fetch(url)
+.then(response => {
+    if (!response.ok) {
+      throw new Error('Not Found..! Please Try Again');
+    }
+    return response.json();
+  })
+  .then((data) => {
+      
+      // Extract main weather condition
+    const condition = data.weather[0].main;
+    const overlayColor = 'rgba(0, 0, 0, 0.5)';
+
+    // gif backgrounds 
+    const backgroundImages = {
+      'Clear': 'https://i.pinimg.com/originals/fa/57/ac/fa57ac36c607eb050bdfd6d9b90a2c37.gif',
+      'Clouds': 'https://media.tenor.com/BvfLmdwdmKUAAAAd/moving-clouds-world-meteorological-day.gif',
+      'Rain': 'https://www.mkgifs.com/wp-content/uploads/2022/04/havy-rain.gif',
+      'Drizzle': 'https://media.tenor.com/UkXBmkGcpNEAAAAC/rain-raining.gif',
+      'Thunderstorm': 'https://media.tenor.com/HqeQnpbG194AAAAC/thunderstorm.gif',
+      'Snow': 'https://media.tenor.com/KVKxt_VtSOoAAAAC/winter-snow.gif',
+      'Mist': 'https://img1.picmix.com/output/pic/normal/0/5/6/1/6661650_789b6.gif',
+      'Smoke': 'https://i.gifer.com/A9LP.gif',
+      'Haze': 'https://media.tenor.com/gOcllR2rcKoAAAAC/fog-mountain.gif',
+      'Dust': 'https://i.gifer.com/CKtq.gif',
+      'Fog': 'https://i.imgur.com/m6mUMQI.gif'
+    };
+
+    // set background according to weather condition
+const backgroundImageUrl = backgroundImages[condition] || backgroundImages['Default'];
+    document.body.style.backgroundImage = `url('${backgroundImageUrl}')`;
+    document.body.style.backgroundColor = overlayColor;
+
+    // for like button to add city in favourite section
+        heart.addEventListener('click', () => {
+        heart.classList.toggle('far');
+        heart.classList.toggle('fas');
+        
+        //store data into empty array
+        const myArray = [];
+          myArray.push(data);
+          localStorage.setItem('myArray', JSON.stringify(myArray));
+      })
+     // get specified weather data
+      const temperature = Math.round(data.main.temp);
+      const description = data.weather[0].description;
+      const iconCode = data.weather[0].icon;
+      const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+
+      // Update weather data elements with new data
+      cityElement.textContent = city;
+      temperatureElement.innerHTML = `${temperature}°C`;
+      descriptionElement.innerHTML = description;
+      iconElement.src = iconUrl;
+    })
+    .catch((error) => console.error(error));
+
+// fetch weather forecast.
+  fetch(urlforecast)
+    .then((response) => response.json())
+    .then((data) => {
+      
+      // Extract forecast data for the next 4 days
+      const today = new Date().getDate();
+      const forecasts = data.list.filter((item, index) => {
+        const date = new Date(item.dt_txt);
+        return index % 8 === 0;
+      });
+
+      // Display the forecast data for the next 4 days
+      // DAY 1 
+      day1.innerText = new Date(forecasts[1].dt_txt).toLocaleDateString('en-US',{ weekday: 'long' });
+      temp1.innerText = `${Math.round(forecasts[1].main.temp)}°C`;
+      desc1.innerText = forecasts[1].weather[0].description;
+      icon1.src = `http://openweathermap.org/img/w/${forecasts[1].weather[0].icon}.png`;
+      
+      // DAY 2
+      day2.innerText = new Date(forecasts[2].dt_txt).toLocaleDateString('en-US',{ weekday: 'long' });
+      temp2.innerText = `${Math.round(forecasts[2].main.temp)}°C`;
+      desc2.innerText = forecasts[2].weather[0].description;
+      icon2.src = `http://openweathermap.org/img/w/${forecasts[2].weather[0].icon}.png`;
+
+      // DAY 3
+      day3.innerText = new Date(forecasts[3].dt_txt).toLocaleDateString('en-US',{ weekday: 'long' });
+      temp3.innerText = `${Math.round(forecasts[3].main.temp)}°C`;
+      desc3.innerText = forecasts[3].weather[0].description;
+      icon3.src = `http://openweathermap.org/img/w/${forecasts[3].weather[0].icon}.png`;
+
+      // DAY 4
+      day4.innerText = new Date(forecasts[4].dt_txt).toLocaleDateString('en-US',{ weekday: 'long' });
+      temp4.innerText = `${Math.round(forecasts[4].main.temp)}°C`;
+      desc4.innerText = forecasts[4].weather[0].description;
+      icon4.src = `http://openweathermap.org/img/w/${forecasts[4].weather[0].icon}.png`;
+
+      // when the user clicks on the search button the content will be show.
+      content.style.display = "block";
+      
+      // at the end spinner will be removed 
+      spinner.style.display = "none";
+    })
+    .catch((error) => console.log(error));
+});
+
+</script>
+</html>
